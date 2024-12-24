@@ -1,0 +1,39 @@
+﻿@page "/"
+@using LivepeerTest.Infrastructure.Services.Livepeer
+@inject LivepeerStartStream LivepeerStartStream
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<strong>
+    1.0;
+</strong>
+
+<br />
+<hr />
+<br />
+
+<iframe src="@playbackUrl" frameborder="0" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture" sandbox="allow-same-origin allow-scripts"></iframe>
+
+<br />
+<br />
+
+<h3>Stream Key: @streamKey </h3>
+
+<button type="button" @onclick="StartAsync">Start Stream</button>
+
+@code {
+    private List<string> myList = new List<string>();
+    private string? playbackUrl; 
+    private string? streamKey;
+
+    private async Task StartAsync()
+    {
+        myList =  await LivepeerStartStream.StartLiveStreamAsync();
+        playbackUrl = myList[0];
+        streamKey = myList[1];
+
+
+    }
+}
